@@ -1,6 +1,7 @@
 package com.udacity.gradle.builditbigger;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -11,6 +12,10 @@ import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 import java.io.IOException;
 
 class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
+
+    private static final String TAG  = EndpointsAsyncTask.class.getSimpleName();
+
+
     private static MyApi myApiService = null;
 
     private Callback callback;
@@ -45,16 +50,18 @@ class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
 
 
         try {
+
             return myApiService.getJoke().execute().getData();
+
         } catch (IOException e) {
-            return e.getMessage();
+
+            Log.e(TAG, e.getMessage());
+            return null;
         }
     }
 
     @Override
     protected void onPostExecute(String result) {
-        if(result != null){
-            callback.onFinished(result);
-        }
+        callback.onFinished(result);
     }
 }
