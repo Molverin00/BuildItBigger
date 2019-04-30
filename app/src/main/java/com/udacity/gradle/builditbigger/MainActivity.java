@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.telljokes.JokeActivity;
 
@@ -54,11 +55,16 @@ public class MainActivity extends AppCompatActivity implements EndpointsAsyncTas
     @Override
     public void onFinished(String result) {
 
-        Log.d(TAG, "onFinished: " + result);
+        if (result == null) {
 
-        Intent intent = new Intent(this, JokeActivity.class);
-        intent.putExtra(Intent.EXTRA_TEXT, result);
+            Toast.makeText(this, "Failed to connect... No Joke :(", Toast.LENGTH_SHORT).show();
 
-        startActivity(intent);
+        } else {
+
+            Intent intent = new Intent(this, JokeActivity.class);
+            intent.putExtra(Intent.EXTRA_TEXT, result);
+            startActivity(intent);
+        }
+
     }
 }

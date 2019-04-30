@@ -13,11 +13,16 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(AndroidJUnit4.class)
 public class EndpointsAsyncTaskTest {
+
+    private static final String TAG = EndpointsAsyncTask.class.getSimpleName();
+
+
     @Rule
     public  ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
     public void testAsyncTask() throws InterruptedException, ExecutionException {
+
         // on the MainActivity execute the AsyncTask
         EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask(activityTestRule.getActivity());
         endpointsAsyncTask.execute();
@@ -28,4 +33,5 @@ public class EndpointsAsyncTaskTest {
         // If the string is not null, then we got a value, aka a joke
         assertNotNull(randomJoke);
     }
+
 }
